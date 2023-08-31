@@ -23,7 +23,8 @@ def state_id(state_id):
     abort(404)
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=['DELETE'])
 def state_id_delete(state_id):
     """Deletes a State object"""
     obj = storage.get(State, state_id)
@@ -61,6 +62,6 @@ def state_put(state_id):
 
     for k, v in data.items():
         if k != 'id' or k != 'created_at' or k != 'updated_at':
-            obj.__dict__.update({k: v})
+            setattr(obj, k, v)
     storage.save()
     return jsonify(obj.to_dict()), 200
