@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Module that contains view of state"""
 from models import storage
 from flask import jsonify, abort, request, make_response
 from api.v1.views import app_views
@@ -7,6 +8,7 @@ from models.state import State
 
 @app_views.route('/states', strict_slashes=False, methods=['GET'])
 def states():
+    """Retrieves the list of all State objects"""
     obj = storage.all(State).values()
     lis = [element.to_dict() for element in obj]
     return jsonify(lis)
@@ -14,6 +16,7 @@ def states():
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
 def state_id(state_id):
+    """Retrieves a State object"""
     obj = storage.get(State, state_id)
     if obj:
         return jsonify(obj.to_dict())
@@ -22,6 +25,7 @@ def state_id(state_id):
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
 def state_id_delete(state_id):
+    """Deletes a State object"""
     obj = storage.get(State, state_id)
     if obj:
         storage.delete(obj)
@@ -32,6 +36,7 @@ def state_id_delete(state_id):
 
 @app_views.route('/states', strict_slashes=False, methods=['POST'])
 def state_post():
+    """Creates a State"""
     data = request.get_json()
     if data is None:
         return jsonify({"error": "Not a JSON"}), 400
@@ -45,6 +50,7 @@ def state_post():
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['PUT'])
 def state_put(state_id):
+    """Updates a State object"""
     obj = storage.get(State, state_id)
     if obj is None:
         abort(404)
