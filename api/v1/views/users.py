@@ -53,7 +53,7 @@ def users_post():
 
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
-def user_put(state_id):
+def user_put(user_id):
     """Updates a User object"""
     obj = storage.get(User, user_id)
     if obj is None:
