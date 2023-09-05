@@ -56,7 +56,8 @@ def place_post(city_id):
         abort(404)
     if 'name' not in data:
         return jsonify({"error": "Missing name"}), 400
-    new_obj = City(name=data.get('name'), city_id=city_id)
+    new_obj = City(name=data.get('name'), city_id=city_id,
+                   user_id=data.get('user_id'))
     storage.new(new_obj)
     storage.save()
     return jsonify(new_obj.to_dict()), 201
