@@ -7,7 +7,7 @@ from models.place import Place
 from models.city import City
 
 
-@app_views.route('/states/<city_id>/cities', strict_slashes=False,
+@app_views.route('/cities/<city_id>/places', strict_slashes=False,
                  methods=['GET'])
 def place_city_id(city_id):
     """Retrieves the list of all Place objects of a city"""
@@ -62,7 +62,7 @@ def place_post(city_id):
 
 
 @app_views.route('/places/<place_id>', strict_slashes=False, methods=['PUT'])
-def city_put(place_id):
+def place_put(place_id):
     """Updates a Place object"""
     obj = storage.get(Place, place_id)
     if obj is None:
